@@ -43,50 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- Notification System ---
-    window.showNotification = function (message, type = 'success') {
-        const alert = document.createElement('div');
-        const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
-        const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-        const bg = type === 'success' ? 'rgba(0,200,83,0.1)' : 'rgba(244,67,54,0.1)';
-        const border = type === 'success' ? 'rgba(0,200,83,0.3)' : 'rgba(244,67,54,0.3)';
-
-        alert.className = `custom-alert alert ${alertClass} position-fixed fade show`;
-        alert.style.cssText = `
-            top: 100px; right: 20px; z-index: 9999;
-            background: ${bg}; border: 1px solid ${border};
-            color: #fff; border-radius: 12px; backdrop-filter: blur(10px);
-            min-width: 300px; max-width: 400px;
-            opacity: 0; transform: translateX(100px);
-            transition: all 0.3s ease;
-        `;
-        alert.innerHTML = `
-            <div class="d-flex align-items-center p-3">
-                <i class="${icon} me-2" style="font-size: 1.2rem;"></i>
-                <span style="flex: 1;">${message}</span>
-                <button type="button" class="btn-close btn-close-white ms-3"></button>
-            </div>
-        `;
-        document.body.appendChild(alert);
-
-        // show animation
-        requestAnimationFrame(() => {
-            alert.style.opacity = '1';
-            alert.style.transform = 'translateX(0)';
-        });
-
-        // close button
-        alert.querySelector('button').addEventListener('click', () => {
-            alert.remove();
-        });
-
-        // auto remove
-        setTimeout(() => {
-            alert.style.opacity = '0';
-            alert.style.transform = 'translateX(100px)';
-            setTimeout(() => alert.remove(), 300);
-        }, 4000);
-    };
 
     // --- Scroll to Top ---
     const scrollBtn = document.createElement('button');
@@ -125,64 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- Contact Form ---
-    const contactForm = document.querySelector('.contact-form-card');
-    if (contactForm) {
-        const submitBtn = document.getElementById('submitBtn');
-        const submitText = document.getElementById('submitText');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            document.querySelectorAll('.form-error').forEach(el => {
-                el.textContent = '';
-                el.style.display = 'none';
-            });
-
-            const formData = new FormData(this);
-            formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
-
-            submitBtn.disabled = true;
-            submitText.textContent = 'در حال ارسال...';
-            loadingSpinner.style.display = 'inline-block';
-
-            fetch(contactForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                }
-            })
-            .then(r => r.ok ? r.json() : Promise.reject())
-            .then(data => {
-                if (data.success) {
-                    showNotification(data.message, 'success');
-                    contactForm.reset();
-                } else {
-                    Object.entries(data.errors).forEach(([field, msgs]) => {
-                        const el = document.querySelector(`[data-error-for="${field}"]`);
-                        if (el) {
-                            el.textContent = Array.isArray(msgs) ? msgs[0] : msgs;
-                            el.style.display = 'block';
-                        }
-                    });
-                }
-            })
-            .catch(() => showNotification('خطا در ارتباط با سرور.', 'error'))
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitText.textContent = 'ارسال پیام';
-                loadingSpinner.style.display = 'none';
-            });
-        });
-    }
-
-    // --- Global Error Handling ---
-    window.addEventListener('error', e => {
-        console.error('Global JS Error:', e.error);
-        showNotification('خطایی در صفحه رخ داد.', 'error');
-    });
 
     // --- Auto remove Django messages ---
     document.querySelectorAll('#messages .alert').forEach(alert => {
