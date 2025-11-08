@@ -62,6 +62,7 @@ class TeamMember(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام و نام خانوادگی", validators=[MinLengthValidator(2)])
     phone = models.CharField(
+        verbose_name="تلفن",
         unique=True,
         max_length=15,
         validators=[RegexValidator(r'^\+?[\d\- ]{7,15}$', 'شماره تلفن معتبر وارد کنید')]
