@@ -4,7 +4,6 @@
         <p class="section-subtitle text-center mb-5">آماده همکاری و پاسخ‌گویی به سوالات شما هستیم</p>
 
         <div class="row justify-content-center">
-            <!-- اطلاعات تماس -->
             <div class="col-lg-5 mb-4">
                 <div class="contact-card p-4 rounded shadow-sm">
                     <h4 class="contact-card-title mb-4">راه‌های ارتباطی</h4>
@@ -32,12 +31,10 @@
                 </div>
             </div>
 
-            <!-- فرم تماس -->
             <div class="col-lg-7">
                 <div class="contact-form-card p-4 rounded shadow-sm">
                     <h4 class="contact-form-title mb-4">پیام مستقیم</h4>
-
-                    <form method="POST">
+                    <form method="POST" action="{% url 'core:index' %}">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit"
