@@ -93,3 +93,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # برای راست‌چین (RTL)
 LANGUAGE_CODE = 'fa-ir'
+
+from django.contrib.messages import constants as messages
+
+# سیستم ذخیره پیام‌ها در session
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# تطبیق message tags با کلاس‌های Bootstrap
+MESSAGE_TAGS = {
+    messages.DEBUG: 'secondary',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
