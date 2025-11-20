@@ -1,6 +1,5 @@
 {% load i18n %}
 
-<!-- Services Section -->
 <section id="services" class="services-section">
     <div class="container">
 
@@ -10,27 +9,32 @@
         <div class="row">
 
             {% for service in services %}
-
                 <div class="col-lg-4 col-md-6 mb-4">
 
                     <div class="service-card">
+
+                        <!-- Icon -->
                         <i class="{{ service.icon }} service-icon"></i>
 
-                        <!-- Dynamic fields -->
+                        <!-- Dynamic Fields -->
                         <h3 class="service-title">{{ service.title }}</h3>
-                        <p class="service-description">{{ service.description }}</p>
-                    </div>
+                        <p class="service-description">{{ service.description|truncatechars:160 }}</p>
 
+                        <!-- Button to detail page -->
+                        <a href="{% url 'core:service_detail' service.id %}"
+                           class="btn-primary-custom btn-sm d-inline-block mt-3">
+                            {% trans "مشاهده جزئیات" %}
+                        </a>
+
+                    </div>
                 </div>
 
             {% empty %}
-
                 <div class="col-12 text-center">
-                    <p style="color: #666; font-size: 1.1rem;">
+                    <p class="text-muted" style="font-size: 1.1rem;">
                         {% trans "هیچ خدمتی برای نمایش وجود ندارد." %}
                     </p>
                 </div>
-
             {% endfor %}
 
         </div>

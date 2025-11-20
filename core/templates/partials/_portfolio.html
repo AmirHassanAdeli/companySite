@@ -34,10 +34,9 @@
                             </div>
 
                             <!-- Details Button -->
-                            <a href="#" class="btn-primary-custom">
-                                {% trans "مشاهده جزئیات" %}
+                            <a href="{% url 'core:project_detail' project.id %}" class="btn-primary-custom">
+                                مشاهده جزئیات
                             </a>
-
                         </div>
                     </div>
                 </div>
