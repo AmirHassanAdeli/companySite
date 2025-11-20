@@ -1,8 +1,12 @@
+{% load i18n %}
+
 <!-- Portfolio Section -->
 <section id="portfolio" class="portfolio-section">
     <div class="container">
-        <h2 class="section-title">نمونه کارهای ما</h2>
-        <p class="section-subtitle">پروژه‌های موفق در حوزه هوش مصنوعی</p>
+
+        <h2 class="section-title">{% trans "نمونه کارهای ما" %}</h2>
+        <p class="section-subtitle">{% trans "پروژه‌های موفق در حوزه هوش مصنوعی" %}</p>
+
         <div class="row" id="portfolioContainer">
 
             {% for project in projects %}
@@ -16,21 +20,30 @@
                         </div>
 
                         <div class="portfolio-content">
+
+                            <!-- Title & Description (Dynamic) -->
                             <h3 class="portfolio-title">{{ project.title }}</h3>
 
                             <p class="portfolio-description">{{ project.short_description }}</p>
 
+                            <!-- Technologies Tags -->
                             <div class="tech-tags">
                                 {% for tech in project.get_technologies_list %}
                                     <span class="tech-tag">{{ tech }}</span>
                                 {% endfor %}
                             </div>
 
-                            <a href="#" class="btn-primary-custom">مشاهده جزئیات</a>
+                            <!-- Details Button -->
+                            <a href="#" class="btn-primary-custom">
+                                {% trans "مشاهده جزئیات" %}
+                            </a>
+
                         </div>
                     </div>
                 </div>
+
             {% endfor %}
+
         </div>
     </div>
 </section>

@@ -1,48 +1,68 @@
+{% load i18n %}
+
 <!-- Contact Section -->
 <section id="contact" class="contact-section py-5">
     <div class="container">
-        <h2 class="section-title text-center mb-3">تماس با ما</h2>
-        <p class="section-subtitle text-center mb-5">آماده همکاری و پاسخ‌گویی به سوالات شما هستیم</p>
+
+        <h2 class="section-title text-center mb-3">{% trans "تماس با ما" %}</h2>
+        <p class="section-subtitle text-center mb-5">
+            {% trans "آماده همکاری و پاسخ‌گویی به سوالات شما هستیم" %}
+        </p>
 
         <div class="row justify-content-center">
             <div class="col-lg-5 mb-4">
                 <div class="contact-card p-4 rounded shadow-sm">
-                    <h4 class="contact-card-title mb-4">راه‌های ارتباطی</h4>
+
+                    <h4 class="contact-card-title mb-4">{% trans "راه‌های ارتباطی" %}</h4>
+
+                    <!-- Email -->
                     <div class="contact-item d-flex align-items-center mb-3">
                         <i class="fas fa-envelope contact-icon text-primary"></i>
                         <div class="me-3">
-                            <h5 class="contact-item-title mb-1">ایمیل</h5>
+                            <h5 class="contact-item-title mb-1">{% trans "ایمیل" %}</h5>
                             <p class="contact-item-text mb-0">info@aiportfolio.ir</p>
                         </div>
                     </div>
+
+                    <!-- Phone -->
                     <div class="contact-item d-flex align-items-center mb-3">
                         <i class="fas fa-phone contact-icon text-primary"></i>
                         <div class="me-3">
-                            <h5 class="contact-item-title mb-1">تلفن</h5>
+                            <h5 class="contact-item-title mb-1">{% trans "تلفن" %}</h5>
                             <p class="contact-item-text mb-0">۰۲۱-۱۲۳۴۵۶۷۸</p>
                         </div>
                     </div>
+
+                    <!-- Address -->
                     <div class="contact-item d-flex align-items-center mb-3">
                         <i class="fas fa-map-marker-alt contact-icon text-primary"></i>
                         <div class="me-3">
-                            <h5 class="contact-item-title mb-1">آدرس</h5>
-                            <p class="contact-item-text mb-0">تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+                            <h5 class="contact-item-title mb-1">{% trans "آدرس" %}</h5>
+                            <p class="contact-item-text mb-0">
+                                {% trans "تهران، خیابان ولیعصر، پلاک ۱۲۳" %}
+                            </p>
                         </div>
                     </div>
+
                 </div>
             </div>
 
             <div class="col-lg-7">
                 <div class="contact-form-card p-4 rounded shadow-sm">
-                    <h4 class="contact-form-title mb-4">پیام مستقیم</h4>
+
+                    <h4 class="contact-form-title mb-4">{% trans "پیام مستقیم" %}</h4>
+
                     <form method="POST" action="{% url 'core:index' %}">
                         {% csrf_token %}
                         {{ form.as_p }}
+
                         <button type="submit"
                                 class="btn btn-primary-custom w-100 d-flex align-items-center justify-content-center">
-                            <i class="fas fa-paper-plane me-2"></i> ارسال پیام
+                            <i class="fas fa-paper-plane me-2"></i>
+                            {% trans "ارسال پیام" %}
                         </button>
                     </form>
+
                 </div>
             </div>
         </div>

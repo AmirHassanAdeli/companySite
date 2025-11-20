@@ -1,116 +1,178 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Portfolio website loaded successfully!');
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("⚡ GSAP High-End Animations Loaded!");
 
-    // === Smooth Scrolling ===
-    document.body.addEventListener('click', e => {
-        const link = e.target.closest('a[href^="#"]');
-        if (!link) return;
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* =====================================================
+       Hero Intro Animation (on page load)
+       ===================================================== */
+    gsap.from(".hero-title", {
+        opacity: 0,
+        y: 40,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+
+    gsap.from(".hero-subtitle", {
+        opacity: 0,
+        y: 40,
+        delay: 0.3,
+        duration: 1.2,
+        ease: "power3.out"
+    });
+
+    gsap.from(".hero-stats .stat-item", {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        delay: 0.6,
+        stagger: 0.2,
+        ease: "power2.out"
+    });
+
+
+    /* =====================================================
+       Smooth Animated Counter (GSAP powered)
+       ===================================================== */
+    const counterElements = document.querySelectorAll(".stat-number");
+
+    counterElements.forEach((el) => {
+        const target = +el.textContent.replace("+", "") || 0;
+
+        gsap.fromTo(
+            el,
+            {innerText: 0},
+            {
+                innerText: target,
+                duration: 2,
+                ease: "power1.inOut",
+                snap: {innerText: 1},
+                scrollTrigger: {
+                    trigger: ".hero-stats",
+                    start: "top 80%",
+                },
+                onUpdate: function () {
+                    el.innerText = Math.round(el.innerText) + "+";
+                }
+            }
+        );
+    });
+
+
+    /* =====================================================
+       Navigation Shrink on Scroll
+       ===================================================== */
+    gsap.to(".navbar", {
+        padding: "5px 0",
+        duration: 0.3,
+        scrollTrigger: {
+            trigger: document.body,
+            start: "top -10",
+            toggleClass: {targets: ".navbar", className: "navbar-scrolled"}
         }
     });
 
-    // === Navbar Scroll Effect (with throttle) ===
-    const navbar = document.querySelector('.navbar');
-    const updateNavbar = () => {
-        if (!navbar) return;
-        const scrolled = window.scrollY > 50;
-        navbar.style.background = scrolled
-            ? 'rgba(10, 10, 10, 0.98)'
-            : 'rgba(10, 10, 10, 0.95)';
-        navbar.style.backdropFilter = 'blur(20px)';
-    };
-    const throttle = (fn, delay = 100) => {
-        let last = 0;
-        return (...args) => {
-            const now = Date.now();
-            if (now - last >= delay) {
-                last = now;
-                fn(...args);
+
+    /* =====================================================
+       Section Reveal Animations (super smooth)
+       ===================================================== */
+    gsap.utils.toArray("section").forEach((section) => {
+        gsap.from(section, {
+            opacity: 0,
+            y: 50,
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                end: "bottom 20%",
+                once: true
             }
-        };
-    };
-    window.addEventListener('scroll', throttle(updateNavbar, 150));
-
-    // === Counter Animation ===
-    let countersAnimated = false;
-    const animateCounters = () => {
-        if (countersAnimated) return;
-        countersAnimated = true;
-        document.querySelectorAll('.stat-number').forEach(counter => {
-            const target = parseInt(counter.textContent, 10) || 0;
-            let current = 0;
-            const steps = 30;
-            const increment = target / steps;
-            const duration = 1000;
-            let step = 0;
-
-            const timer = setInterval(() => {
-                step++;
-                current += increment;
-                counter.textContent = (step >= steps ? target : Math.floor(current)) + '+';
-                if (step >= steps) clearInterval(timer);
-            }, duration / steps);
         });
-    };
+    });
 
-    // === Scroll To Top Button ===
-    const scrollBtn = document.createElement('button');
-    scrollBtn.className = 'scroll-to-top';
-    scrollBtn.setAttribute('aria-label', 'Scroll to top');
+
+    /* =====================================================
+       Service Cards Floating Reveal
+       ===================================================== */
+    gsap.utils.toArray(".service-card").forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 40,
+            scale: 0.95,
+            duration: 0.9,
+            delay: i * 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                once: true
+            }
+        });
+    });
+
+
+    /* =====================================================
+       Portfolio Cinematic Reveal (React-like stagger)
+       ===================================================== */
+    gsap.utils.toArray(".portfolio-card").forEach((card, i) => {
+        gsap.from(card, {
+            opacity: 0,
+            y: 80,
+            scale: 0.95,
+            duration: 1.1,
+            delay: i * 0.12,
+            ease: "power4.out",
+            scrollTrigger: {
+                trigger: card,
+                start: "top 95%",
+                once: true
+            }
+        });
+    });
+
+
+    /* =====================================================
+       Contact Card Reveal
+       ===================================================== */
+    gsap.from(".contact-card, .contact-form-card", {
+        opacity: 0,
+        y: 60,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".contact-section",
+            start: "top 85%",
+            once: true
+        }
+    });
+
+
+    /* =====================================================
+       Scroll To Top Button
+       ===================================================== */
+    const scrollBtn = document.createElement("button");
+    scrollBtn.className = "scroll-to-top";
     scrollBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
     document.body.appendChild(scrollBtn);
 
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollBtn.addEventListener("click", () => {
+        window.scrollTo({top: 0, behavior: "smooth"});
     });
 
-    const toggleScrollBtn = () => {
-        scrollBtn.classList.toggle('show', window.pageYOffset > 300);
-    };
-    window.addEventListener('scroll', throttle(toggleScrollBtn, 150));
-
-    // === Intersection Observer for Animations ===
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-
-            const el = entry.target;
-            el.classList.add('animate-in');
-
-            if (el.classList.contains('hero-section')) animateCounters();
-
-            observer.unobserve(el);
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('section, .service-card, .portfolio-card').forEach(el => {
-        observer.observe(el);
+    ScrollTrigger.create({
+        start: "top -400",
+        onEnter: () => scrollBtn.classList.add("show"),
+        onLeaveBack: () => scrollBtn.classList.remove("show"),
     });
 
-    // === Portfolio Card Animation ===
-    document.querySelectorAll('.portfolio-card').forEach((card, i) => {
-        card.style.animationDelay = `${i * 0.1}s`;
-        card.classList.add('new-project');
-    });
-
-    document.body.addEventListener('click', e => {
-        const card = e.target.closest('.portfolio-card');
-        if (!card) return;
-        if (e.target.closest('a, button')) return;
-
-        card.style.transform = 'scale(0.95)';
-        setTimeout(() => (card.style.transform = ''), 150);
-    });
-
-    // === Auto Remove Django Messages ===
-    document.querySelectorAll('#messages .alert').forEach(alert => {
+    /* =====================================================
+       Auto Remove Django Messages
+       ===================================================== */
+    document.querySelectorAll("#messages .alert").forEach((alert) => {
         setTimeout(() => {
-            alert.classList.remove('show');
-            alert.classList.add('fade');
-            setTimeout(() => alert.remove(), 500);
+            alert.classList.add("fade");
+            setTimeout(() => alert.remove(), 600);
         }, 3000);
     });
 });

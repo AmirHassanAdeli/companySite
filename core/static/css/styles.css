@@ -1,4 +1,37 @@
-/* === Reset & Base Styles === */
+/* ===========================
+   Root Variables & Base Reset
+   =========================== */
+
+:root {
+    --color-bg-main: #0a0a0a;
+    --color-bg-alt: #0f0f0f;
+    --color-bg-alt2: #1a1a2e;
+    --color-bg-deep: #16213e;
+
+    --color-primary: #00d4ff;
+    --color-primary-soft: rgba(0, 212, 255, 0.2);
+    --color-secondary: #6a5acd;
+    --color-secondary-soft: rgba(106, 90, 205, 0.3);
+
+    --color-text-main: #ffffff;
+    --color-text-muted: #c0c0c0;
+    --color-text-danger: #f44336;
+
+    --color-border-soft: rgba(0, 212, 255, 0.2);
+    --color-border-strong: rgba(0, 212, 255, 0.5);
+
+    --radius-lg: 20px;
+    --radius-pill: 50px;
+
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --shadow-strong: 0 20px 40px rgba(0, 212, 255, 0.2);
+
+    --transition-fast: 0.3s ease;
+    --transition-med: 0.4s ease;
+}
+
+/* Reset */
+
 * {
     margin: 0;
     padding: 0;
@@ -7,23 +40,31 @@
 
 body {
     font-family: 'Vazirmatn', sans-serif;
-    background: #0a0a0a;
-    color: #ffffff;
+    background: var(--color-bg-main);
+    color: var(--color-text-main);
     overflow-x: hidden;
     line-height: 1.6;
 }
 
-/* === Custom Scrollbar === */
+/* RTL / LTR helpers */
+body[dir="ltr"] {
+    text-align: left;
+}
+
+/* ===========================
+   Scrollbar
+   =========================== */
+
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a2e;
+    background: var(--color-bg-alt2);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border-radius: 10px;
 }
 
@@ -31,32 +72,35 @@ body {
     background: linear-gradient(135deg, #00b8e6, #5a4cb2);
 }
 
-/* === Navigation === */
+/* ===========================
+   Navbar
+   =========================== */
+
 .navbar {
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    border-bottom: 1px solid var(--color-border-soft);
     padding: 15px 0;
-    transition: all 0.3s ease;
+    transition: background 0.4s ease, box-shadow var(--transition-fast), backdrop-filter var(--transition-fast);
     z-index: 1000;
 }
 
 .navbar-brand {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #00d4ff !important;
+    color: var(--color-primary) !important;
 }
 
 .nav-link {
-    color: #ffffff !important;
+    color: var(--color-text-main) !important;
     font-weight: 500;
     margin: 0 10px;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
     position: relative;
 }
 
 .nav-link:hover {
-    color: #00d4ff !important;
+    color: var(--color-primary) !important;
 }
 
 .nav-link::after {
@@ -66,20 +110,28 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #6a5acd);
-    transition: width 0.3s ease;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    transition: width var(--transition-fast);
 }
 
 .nav-link:hover::after {
     width: 100%;
 }
 
-/* === Hero Section === */
+/* زبان در ناوبار - در LTR سمت راست */
+body[dir="ltr"] .navbar .dropdown-menu {
+    text-align: left;
+}
+
+/* ===========================
+   Hero Section
+   =========================== */
+
 .hero-section {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-bg-alt2) 50%, var(--color-bg-deep) 100%);
     position: relative;
     overflow: hidden;
 }
@@ -94,19 +146,19 @@ body {
 }
 
 .badge-text {
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     padding: 8px 16px;
-    border-radius: 25px;
+    border-radius: var(--radius-pill);
     font-size: 0.9rem;
     font-weight: 600;
-    color: white;
+    color: var(--color-text-main);
 }
 
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 25px;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd, #c0c0c0);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), #c0c0c0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -128,7 +180,7 @@ body {
 
 .hero-subtitle {
     font-size: 1.2rem;
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     margin-bottom: 40px;
     line-height: 1.8;
 }
@@ -146,26 +198,29 @@ body {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #00d4ff;
+    color: var(--color-primary);
     display: block;
 }
 
 .stat-label {
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     font-size: 0.9rem;
 }
 
-/* === Buttons === */
+/* ===========================
+   Buttons
+   =========================== */
+
 .btn-primary-custom {
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border: none;
     padding: 15px 35px;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
-    color: white;
+    color: var(--color-text-main);
     text-decoration: none;
     display: inline-block;
-    transition: all 0.4s ease;
+    transition: all var(--transition-med);
     position: relative;
     overflow: hidden;
 }
@@ -173,35 +228,53 @@ body {
 .btn-primary-custom:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-    color: white;
+    color: var(--color-text-main);
 }
 
 .btn-outline-custom {
     background: transparent;
-    border: 2px solid #00d4ff;
+    border: 2px solid var(--color-primary);
     padding: 13px 33px;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
-    color: #00d4ff;
+    color: var(--color-primary);
     text-decoration: none;
     display: inline-block;
-    transition: all 0.4s ease;
+    transition: all var(--transition-med);
 }
 
 .btn-outline-custom:hover {
-    background: #00d4ff;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-text-main);
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
 }
 
-/* === Sections Common Styles === */
+/* Small buttons */
+.btn-sm {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+
+/* Block button */
+.btn-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ===========================
+   Section Titles
+   =========================== */
+
 .section-title {
     font-size: 3rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -209,73 +282,76 @@ body {
 
 .section-subtitle {
     text-align: center;
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     font-size: 1.2rem;
     margin-bottom: 60px;
 }
 
-/* === Services Section === */
+/* ===========================
+   Services Section
+   =========================== */
+
 .services-section {
     padding: 100px 0;
-    background: #0f0f0f;
+    background: var(--color-bg-alt);
 }
 
 .service-card {
     background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.6));
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    border-radius: 20px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
     padding: 40px 30px;
     text-align: center;
-    transition: all 0.4s ease;
+    transition: all var(--transition-med);
     height: 100%;
     backdrop-filter: blur(10px);
 }
 
 .service-card:hover {
     transform: translateY(-10px);
-    border-color: rgba(0, 212, 255, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-strong);
 }
 
 .service-icon {
     font-size: 3.5rem;
-    color: #00d4ff;
+    color: var(--color-primary);
     margin-bottom: 25px;
     display: block;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
 }
 
 .service-card:hover .service-icon {
     transform: scale(1.1);
-    color: #6a5acd;
+    color: var(--color-secondary);
 }
 
 .service-title {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 20px;
-    color: #ffffff;
+    color: var(--color-text-main);
 }
 
 .service-description {
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     line-height: 1.6;
 }
 
-/* === Portfolio Section === */
+/* ===========================
+   Portfolio Section
+   =========================== */
+
 .portfolio-section {
     padding: 100px 0;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-bg-alt2) 100%);
     position: relative;
 }
 
 .portfolio-section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(106,90,205,0.03)" points="0,0 1000,1000 0,1000"/></svg>');
     background-size: cover;
 }
@@ -287,10 +363,10 @@ body {
 
 .portfolio-card {
     background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.7));
-    border: 1px solid rgba(106, 90, 205, 0.3);
-    border-radius: 20px;
+    border: 1px solid var(--color-secondary-soft);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: all var(--transition-med);
     margin-bottom: 30px;
     height: 100%;
     backdrop-filter: blur(10px);
@@ -299,7 +375,7 @@ body {
 .portfolio-card:hover {
     transform: translateY(-15px) scale(1.02);
     box-shadow: 0 25px 50px rgba(106, 90, 205, 0.3);
-    border-color: rgba(0, 212, 255, 0.5);
+    border-color: var(--color-border-strong);
 }
 
 .portfolio-image {
@@ -308,7 +384,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: white;
+    color: var(--color-text-main);
     position: relative;
     overflow: hidden;
 }
@@ -316,10 +392,7 @@ body {
 .portfolio-image::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
 }
 
@@ -330,13 +403,13 @@ body {
 .portfolio-title {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--color-text-main);
     margin-bottom: 15px;
     line-height: 1.4;
 }
 
 .portfolio-description {
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     line-height: 1.6;
     margin-bottom: 20px;
     display: -webkit-box;
@@ -354,13 +427,13 @@ body {
 
 .tech-tag {
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(106, 90, 205, 0.2));
-    color: #00d4ff;
+    color: var(--color-primary);
     border: 1px solid rgba(0, 212, 255, 0.3);
     padding: 6px 14px;
     border-radius: 25px;
     font-size: 0.85rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
 }
 
 .tech-tag:hover {
@@ -375,55 +448,58 @@ body {
     gap: 10px;
 }
 
-.btn-sm {
-    padding: 8px 20px;
-    font-size: 0.9rem;
+/* New project animation */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.btn-primary-custom.btn-sm {
-    padding: 8px 20px;
+.portfolio-card.new-project {
+    animation: fadeInUp 0.7s ease-out forwards;
 }
 
-.btn-outline-custom.btn-sm {
-    padding: 6px 12px;
-    border-width: 1px;
-}
+/* ===========================
+   Contact Section
+   =========================== */
 
-/* === Contact Section === */
 .contact-section {
     padding: 100px 0;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-bg-alt2) 100%);
     position: relative;
 }
 
 .contact-section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(0,212,255,0.02)" points="0,1000 1000,0 1000,1000"/></svg>');
     background-size: cover;
 }
 
 .contact-card {
     background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.7));
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    border-radius: 20px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
     padding: 40px 30px;
     backdrop-filter: blur(10px);
     height: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-soft);
 }
 
 .contact-card-title {
-    color: #ffffff;
+    color: var(--color-text-main);
     margin-bottom: 30px;
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -437,7 +513,7 @@ body {
     background: rgba(0, 212, 255, 0.05);
     border-radius: 15px;
     border: 1px solid rgba(0, 212, 255, 0.1);
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
     position: relative;
     overflow: hidden;
 }
@@ -465,55 +541,64 @@ body {
 
 .contact-icon {
     font-size: 1.5rem;
-    color: #00d4ff;
+    color: var(--color-primary);
     margin-left: 20px;
     width: 50px;
     text-align: center;
     flex-shrink: 0;
 }
 
+/* در حالت LTR، آیکون به سمت راست برود */
+body[dir="ltr"] .contact-icon {
+    margin-left: 0;
+    margin-right: 20px;
+}
+
 .contact-item-title {
-    color: #ffffff;
+    color: var(--color-text-main);
     margin-bottom: 5px;
     font-size: 1.1rem;
     font-weight: 600;
 }
 
 .contact-item-text {
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     margin: 0;
     font-size: 0.95rem;
 }
 
 .contact-form-card {
     background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.7));
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    border-radius: 20px;
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-lg);
     padding: 40px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-soft);
 }
 
 .contact-form-title {
-    color: #ffffff;
+    color: var(--color-text-main);
     margin-bottom: 25px;
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* === Form Styles === */
+/* ===========================
+   Form Styles
+   =========================== */
+
 .form-group {
     margin-bottom: 25px;
     position: relative;
 }
 
 .form-label {
-    color: #ffffff;
+    color: var(--color-text-main);
     font-weight: 500;
     margin-bottom: 8px;
     display: block;
@@ -522,29 +607,25 @@ body {
 
 .form-control {
     background: rgba(0, 212, 255, 0.05);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    border: 1px solid var(--color-border-soft);
     border-radius: 12px;
-    color: #ffffff;
+    color: var(--color-text-main);
     padding: 15px 20px;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
     width: 100%;
 }
 
 .form-control:focus {
     background: rgba(0, 212, 255, 0.1);
-    border-color: #00d4ff;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
-    color: #ffffff;
+    color: var(--color-text-main);
     outline: none;
 }
 
 .form-control::placeholder {
     color: rgba(192, 192, 192, 0.6);
-}
-
-.form-control:invalid:not(:focus) {
-    border-color: rgba(244, 67, 54, 0.3);
 }
 
 .form-check {
@@ -557,30 +638,31 @@ body {
 }
 
 .form-check-input:checked {
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
-    border-color: #00d4ff;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-color: var(--color-primary);
 }
 
 .form-check-label {
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     font-size: 0.9rem;
     margin-right: 8px;
 }
 
 .form-check-label a {
-    color: #00d4ff;
+    color: var(--color-primary);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color var(--transition-fast);
 }
 
 .form-check-label a:hover {
-    color: #6a5acd;
+    color: var(--color-secondary);
 }
 
+/* خطای فرم */
 .form-error {
-    color: #f44336;
-    font-size: 0.85rem;
-    margin-top: 5px;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
     display: none;
 }
 
@@ -588,22 +670,24 @@ body {
     display: block;
 }
 
-.btn-block {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.form-group:focus-within .form-label {
+    color: var(--color-secondary);
+    transform: translateX(-5px);
 }
+
+/* ===========================
+   Loading Spinner
+   =========================== */
 
 .loading-spinner {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
     border-radius: 50%;
-    border-top-color: #ffffff;
-    animation: spin 1s ease-in-out infinite;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
 }
 
 @keyframes spin {
@@ -612,11 +696,14 @@ body {
     }
 }
 
-/* === Footer === */
+/* ===========================
+   Footer
+   =========================== */
+
 .footer {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-bg-alt2) 100%);
     padding: 50px 0 30px;
-    border-top: 1px solid rgba(0, 212, 255, 0.2);
+    border-top: 1px solid var(--color-border-soft);
 }
 
 .social-links {
@@ -635,16 +722,16 @@ body {
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(106, 90, 205, 0.2));
     border: 1px solid rgba(0, 212, 255, 0.3);
     border-radius: 50%;
-    color: #00d4ff;
+    color: var(--color-primary);
     font-size: 1.2rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
     text-decoration: none;
 }
 
 .social-link:hover {
     transform: translateY(-5px);
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.4), rgba(106, 90, 205, 0.4));
-    color: #ffffff;
+    color: var(--color-text-main);
 }
 
 .contact-card .social-links {
@@ -660,20 +747,22 @@ body {
     font-size: 1.1rem;
 }
 
-/* === Floating Buttons === */
+/* ===========================
+   Floating Buttons
+   =========================== */
+
 .add-project-btn {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 65px;
     height: 65px;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
-    border: 2px solid rgba(192, 192, 192, 0.3);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border-radius: 50%;
-    color: white;
+    color: var(--color-text-main);
     font-size: 1.6rem;
     box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
-    transition: all 0.4s ease;
+    transition: all var(--transition-med);
     z-index: 1000;
     backdrop-filter: blur(10px);
     display: flex;
@@ -687,7 +776,7 @@ body {
 .add-project-btn:hover {
     transform: scale(1.15) rotate(90deg);
     box-shadow: 0 12px 35px rgba(0, 212, 255, 0.6);
-    color: white;
+    color: var(--color-text-main);
 }
 
 .scroll-to-top {
@@ -696,15 +785,15 @@ body {
     left: 30px;
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border: none;
     border-radius: 50%;
-    color: white;
+    color: var(--color-text-main);
     font-size: 1.2rem;
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: opacity var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     z-index: 1000;
     box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
 }
@@ -719,16 +808,28 @@ body {
     box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
 }
 
-/* === Modal Styles === */
+/* ===========================
+   Modal
+   =========================== */
+
 .modal {
     backdrop-filter: blur(15px);
+}
+
+.modal-backdrop {
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 46, 0.8));
+    backdrop-filter: blur(10px);
+}
+
+.modal-backdrop.show {
+    opacity: 1;
 }
 
 .modal-content {
     background: linear-gradient(145deg, rgba(10, 10, 10, 0.95), rgba(26, 26, 46, 0.98));
     border: 2px solid rgba(0, 212, 255, 0.3);
-    border-radius: 20px;
-    color: #ffffff;
+    border-radius: var(--radius-lg);
+    color: var(--color-text-main);
     backdrop-filter: blur(25px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 }
@@ -737,13 +838,13 @@ body {
     border-bottom: 1px solid rgba(0, 212, 255, 0.3);
     padding: 25px 30px 15px;
     background: rgba(0, 212, 255, 0.05);
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .modal-title {
     font-size: 1.6rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -759,13 +860,13 @@ body {
     border-top: 1px solid rgba(0, 212, 255, 0.2);
     padding: 20px 30px;
     background: rgba(0, 212, 255, 0.03);
-    border-radius: 0 0 20px 20px;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .btn-close {
     filter: brightness(0) invert(1);
     opacity: 0.8;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
 }
 
 .btn-close:hover {
@@ -774,7 +875,7 @@ body {
 }
 
 .modal .form-label {
-    color: #00d4ff;
+    color: var(--color-primary);
     font-weight: 600;
     margin-bottom: 10px;
     font-size: 1rem;
@@ -784,18 +885,18 @@ body {
     background: rgba(0, 212, 255, 0.08);
     border: 1px solid rgba(0, 212, 255, 0.3);
     border-radius: 12px;
-    color: #ffffff;
+    color: var(--color-text-main);
     padding: 14px 18px;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
     backdrop-filter: blur(10px);
 }
 
 .modal .form-control:focus {
     background: rgba(0, 212, 255, 0.15);
-    border-color: #00d4ff;
+    border-color: var(--color-primary);
     box-shadow: 0 0 0 0.3rem rgba(0, 212, 255, 0.2);
-    color: #ffffff;
+    color: var(--color-text-main);
     transform: translateY(-2px);
 }
 
@@ -803,67 +904,35 @@ body {
     color: rgba(192, 192, 192, 0.6);
 }
 
-.modal select.form-control {
-    background: rgba(0, 212, 255, 0.08);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.modal select.form-control option {
-    background: #1a1a2e;
-    color: #ffffff;
-    padding: 10px;
-}
-
-.modal select.form-control:focus {
-    background: rgba(0, 212, 255, 0.15);
-    border-color: #00d4ff;
-}
-
-.modal-backdrop {
-    background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 46, 0.8));
-    backdrop-filter: blur(10px);
-}
-
-.modal-backdrop.show {
-    opacity: 1;
-}
-
 .modal .btn-secondary {
     background: rgba(192, 192, 192, 0.1);
     border: 1px solid rgba(192, 192, 192, 0.3);
-    color: #c0c0c0;
+    color: var(--color-text-muted);
     padding: 12px 30px;
-    border-radius: 50px;
-    transition: all 0.3s ease;
+    border-radius: var(--radius-pill);
+    transition: all var(--transition-fast);
 }
 
 .modal .btn-secondary:hover {
     background: rgba(192, 192, 192, 0.2);
     border-color: rgba(192, 192, 192, 0.5);
-    color: #ffffff;
+    color: var(--color-text-main);
     transform: translateY(-2px);
 }
 
 .modal .btn-primary-custom {
-    background: linear-gradient(135deg, #00d4ff, #6a5acd);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border: none;
     padding: 12px 35px;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
-    color: white;
-    transition: all 0.3s ease;
+    color: var(--color-text-main);
+    transition: all var(--transition-fast);
 }
 
 .modal .btn-primary-custom:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
-}
-
-.form-group:focus-within .form-label {
-    color: #6a5acd;
-    transform: translateX(-5px);
 }
 
 .modal .text-muted {
@@ -875,7 +944,7 @@ body {
 .modal.fade .modal-content {
     transform: translateY(-50px) scale(0.9);
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all var(--transition-fast);
 }
 
 .modal.show .modal-content {
@@ -883,23 +952,38 @@ body {
     opacity: 1;
 }
 
-/* === Animation for new projects === */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ===========================
+   Global Animations / Sections
+   =========================== */
+
+/* برای افکت اسکرول (در JS، کلاس animate-in اضافه می‌کنی) */
+section,
+.service-card,
+.portfolio-card {
+    opacity: 0;
+    transform: translateY(40px);
 }
 
-.portfolio-card.new-project {
-    animation: fadeInUp 0.6s ease-out;
+.animate-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* === Responsive Design === */
+/* پیام‌ها (Django messages) */
+#messages .alert {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#messages .alert.fade {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
@@ -951,6 +1035,11 @@ body {
         width: 40px;
     }
 
+    body[dir="ltr"] .contact-icon {
+        margin-left: 0;
+        margin-right: 15px;
+    }
+
     .form-control {
         padding: 12px 15px;
     }
@@ -998,33 +1087,6 @@ body {
     }
 }
 
-.loading-spinner {
-    border: 2px solid #f3f3f3;
-    border-top: 2px solid #3498db;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.form-error {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: none;
-}
-
 @media (max-width: 576px) {
     .contact-section {
         padding: 60px 0;
@@ -1034,44 +1096,4 @@ body {
     .contact-form-title {
         font-size: 1.3rem;
     }
-}
-
-/* === Smooth Fade & Entrance Animations === */
-.animate-in {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-section,
-.service-card,
-.portfolio-card {
-    opacity: 0;
-    transform: translateY(40px);
-}
-
-/* === Fade for Messages === */
-#messages .alert {
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-#messages .alert.fade {
-    opacity: 0;
-    transform: translateY(-10px);
-}
-
-/* === Scroll-to-Top Button Enhancement === */
-.scroll-to-top {
-    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* === Project Entry Animation (already exists but enhanced) === */
-
-.portfolio-card.new-project {
-    animation: fadeInUp 0.7s ease-out forwards;
-}
-
-/* === Navbar transition improvement === */
-.navbar {
-    transition: background 0.4s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
 }
