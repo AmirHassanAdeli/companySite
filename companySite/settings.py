@@ -4,6 +4,7 @@ Django settings for companySite project.
 
 import os
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,12 +74,25 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
-LANGUAGE_CODE = 'fa-ir'  # فارسی
-TIME_ZONE = 'Asia/Tehran'  # ایران
+# --- Internationalization (i18n) ---
+
+LANGUAGE_CODE = 'fa'  # فارسی پیش‌فرض
+TIME_ZONE = 'Asia/Tehran'
+
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# زبان‌ها
+LANGUAGES = [
+    ('fa', 'Persian'),
+    ('en', 'English'),
+]
+
+# مسیر فایل‌های ترجمه
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
@@ -90,11 +105,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# برای راست‌چین (RTL)
-LANGUAGE_CODE = 'fa-ir'
-
-from django.contrib.messages import constants as messages
 
 # سیستم ذخیره پیام‌ها در session
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
