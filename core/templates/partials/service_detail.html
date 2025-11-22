@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section class="service-hero-section">
+        <div class="container text-center">
+            <h1 class="service-title">{{ service.title }}</h1>
+            <p class="service-subtitle">{{ service.description|slice:":150" }}...</p>
+
+            <div class="service-icon-box">
+                <i class="{{ service.icon }}"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-detail-section py-5">
+        <div class="container">
+
+            <div class="service-detail-card">
+                <h2 class="section-title">درباره این سرویس</h2>
+
+                <p class="service-full-text">
+                    {{ service.description }}
+                </p>
+
+                <hr class="divider">
+
+                <h3 class="detail-heading">مزایای این سرویس</h3>
+                <ul class="detail-list">
+                    <li>تحلیل کامل نیازهای مشتری و ارائه راه‌حل اختصاصی</li>
+                    <li>به‌کارگیری آخرین تکنیک‌های هوش مصنوعی و یادگیری ماشین</li>
+                    <li>تحویل سریع و تضمین کیفیت خروجی</li>
+                    <li>پشتیبانی فنی بعد از تحویل پروژه</li>
+                </ul>
+
+                <hr class="divider">
+
+                <h3 class="detail-heading">مراحل انجام کار</h3>
+                <div class="steps">
+                    <div class="step-item">
+                        <span class="step-number">١</span>
+                        <h4>تحلیل نیاز مشتری</h4>
+                        <p>در این مرحله مشکلات، اهداف و داده‌های موجود بررسی می‌شود.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">٢</span>
+                        <h4>طراحی و معماری سیستم</h4>
+                        <p>انتخاب مدل، ابزارها و طراحی ساختار کلی پیاده‌سازی.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">٣</span>
+                        <h4>پیاده‌سازی و توسعه</h4>
+                        <p>توسعه سرویس با بهترین کتابخانه‌ها و ابزارهای هوش مصنوعی.</p>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">٤</span>
+                        <h4>تحویل و پشتیبانی</h4>
+                        <p>تحویل نهایی، تست و پشتیبانی فنی در صورت نیاز.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
